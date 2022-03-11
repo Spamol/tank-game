@@ -1,0 +1,20 @@
+{
+  "name": "tank-game",
+  "version": "1.0.0",
+  "description": "otus leaning project",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:Spamol/tank-game.git"
+  },
+  "author": "Spamol",
+  "license": "ISC",
+  "homepage": "https://github.com/Spamol/tank-game",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
+}
