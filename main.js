@@ -1,18 +1,21 @@
 class Main {
   solve(a, b, c) {
-    if(Math.floor(a) === 0) return false;
-    if(typeof a !== 'number' || typeof b !== 'number' || typeof c !== 'number') return false;
+    if(Math.abs(a) < 1e-10) return false;
+    if(!(!isNaN(parseFloat(a)) && isFinite(a)) || !(!isNaN(parseFloat(b)) && isFinite(b)) || !(!isNaN(parseFloat(c)) && isFinite(c))) return false;
     const res = [];
     const D = b * b - 4 * a * c;
-    if(D < 0) return [];
-    if(Math.floor(D) == 0)
+    if(D < 1e-10) return [];
+    if(-1e-10 <= D <= 1e-10)
         res.push((-b + Math.sqrt(D)) / (2 * a));
-    else if(D > 0){
+    else if(D > 1e-10){
         res.push((-b + Math.sqrt(D)) / (2 * a));
         res.push((-b - Math.sqrt(D)) / (2 * a));
     }
     return res;
   }
 }
+
+const m = new Main();
+m.solve(0, 1, 1);
 
 module.exports = Main;

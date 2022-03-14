@@ -11,13 +11,13 @@ test('x^2-1 = 0', () => {
 });
 
 test('discriminant > 0 && discriminant < epsilon', () => {
-  expect(main.solve(2, 1.65, 0.3)).toEqual([ -0.2705272913549932 ]);
+  expect(main.solve(2, 1.65, 0.3)).toEqual([ -0.2705272913549932, -0.5544727086450068 ]);
 });
 
-test('a > 0 && a < 1', () => {
-  expect(main.solve(0.3, 1, 1)).toEqual(false);
+test('Math.abs(a) < 1e-10', () => {
+  expect(main.solve(0, 1, 1)).toEqual(false);
 });
 
 test('a, b, c not numbers', () => {
-  expect(main.solve('1', false, null)).toEqual(false);
+  expect(main.solve('1', NaN, Infinity)).toEqual(false);
 });
