@@ -15,7 +15,7 @@ test('discriminant > 0 && discriminant < epsilon', () => {
 });
 
 test('Math.abs(a) < 1e-10', () => {
-  expect(main.solve(0, 1, 1)).toEqual(false);
+  expect(main.solve(1e-11, 1, 1)).toEqual(false);
 });
 
 test('a, b, c not numbers', () => {
