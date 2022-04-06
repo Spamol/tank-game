@@ -1,11 +1,11 @@
 class Rotate {
-    private m: RotatebleAdapter;
-    constructor(m: RotatebleAdapter) {
+    private m: RotatebleInterface;
+    constructor(m: RotatebleInterface) {
         this.m = m;
     }
     public execute():void {
         this.m.setDirection(
-            (Object.values(this.m.getDirection())[0] + Object.values(this.m.getAngularVelocity())[0]) % Object.values(this.m.getDirectionsNumber())[0]
+            (this.m.getDirection() + this.m.getAngularVelocity()) % this.m.getDirectionsNumber()
         );
     }
 }
