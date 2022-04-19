@@ -1,6 +1,6 @@
-const Main = require('./main');
+const MainModule = require('./main');
 
-const main = new Main();
+const main = new MainModule();
 
 test('x^2+1 = 0', () => {
   expect(main.solve(1, 0, 1)).toEqual([ ]);
