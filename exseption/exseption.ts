@@ -1,18 +1,35 @@
 const LoggerModule = require('../logger/logger');
+const RepeaterModule = require('../repeater/repeater');
+const RepeaterModule2 = require('../repeater2/repeater2');
+import { Subject } from 'rxjs';
 
-class Exception {
-    private readonly error: Error;
-    constructor(err: Error) {
-        this.error = err;
+interface ExceptionHandler {
+    handle(c: object, error: Error): void;
+}
+
+class Exception implements ExceptionHandler {
+    constructor(private queue: Subject<Command>) {}
+
+    public handle(command: Command, error: Error):void {
+        const key = this.getKeyForStrategy(error, command);
+        this.strategis[key](error, command, this.queue);
     }
-    public getError():Error {
-        return this.error;
+
+    private getKeyForStrategy(error: Error, с: Command): string {
+        return error.constructor.name + с.constructor.name;
     }
-    static handler(c:object, ex: Exception):void {
-        // пока дефолтное сделал
-        const logger = new LoggerModule(ex);
-        // как поставить в очередь, если доступа к очереди тут нет?
-        logger.execute();
+
+    private get strategis(): Record<
+        string,
+        (error: Error, command: Command, queue: Subject<Command>) => void
+        > {
+        return {
+            ['ErrorMove']: (e, _, q$) => q$.next(new LoggerModule(e)),
+            ['ErrorRotate']: (e, _, q$) => q$.next(new RepeaterModule(_, q$, e)),
+            ['ErrorRepeater']: (e, _, q$) => q$.next(new LoggerModule(e)),
+            ['ErrorRotate2']: (e, _, q$) => q$.next(new RepeaterModule2(_, q$, e)),
+            ['ErrorRepeater2']: (e, _, q$) => q$.next(new RepeaterModule(_, q$, e)),
+        };
     }
 }
 
